@@ -1,7 +1,9 @@
 # web app
 
 from flask import Flask, render_template, request
+import joblib
 
+dbsModel = joblib.load("DBS_SGD.pkl")
 app = Flask(__name__)
 
 @app.route("/", methods=["GET","POST"])
@@ -20,7 +22,9 @@ def dbs():
 
 @app.route("/dbsPred", methods=["GET","POST"])
 def dbsPred():
-    return(render_template("dbsPred.html"))
+    q = float(request.form.get("q"))
+    r = dbsModel.predict([[q]])
+    return(render_template("dbsPred.html", r=r[0][0]))
 
 if __name__ == "__main__":
     app.run()
