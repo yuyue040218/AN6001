@@ -18,5 +18,9 @@ def main():
 def dbs():
     return(render_template("dbs.html"))
 
+@app.route("/dbsPred", methods=["GET","POST"])
+def dbsPred():
+    return(render_template("dbsPred.html"))
+
 if __name__ == "__main__":
     app.run()
